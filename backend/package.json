@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node back.js",
     "test": "node --test",
-    "lint": "node back.js"
+    "lint": "node --check back.js",
+    "build": "echo \"build ok\""
   },
   "keywords": [],
   "author": "",
