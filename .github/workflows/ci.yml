@@ -62,7 +62,15 @@ jobs:
         run: npm ci
 
       - name: npm test
-        run: npm test
+        run: npm test > raport.txt
+
+      - name: Raport testów  (Node 20)
+        if: matrix.node-version == 20
+        uses: actions/upload-artifact@v4
+        with:
+          name: raport-node20
+          path: raport.txt
+          retention-days: 7
 
 
   build:
@@ -85,3 +93,8 @@ jobs:
 
       - name:  npm run build
         run: npm run build
+
+      - name: Step summary-rozmiar buildu
+        run: |
+          SIZE=$(du -sh . 2>/dev/null | cut -f1)
+          echo "- Build size: $SIZE" >> $GITHUB_STEP_SUMMARY
