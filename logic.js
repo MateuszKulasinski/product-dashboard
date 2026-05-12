@@ -25,9 +25,14 @@ function validateItem(item) {
     return typeof item === 'string' && item.length > 0;
 }
 
+function subtract(a, b) {
+  return a - b;
+}
+
 module.exports = {
     readItems,
     addItem,
     getStats,
-    validateItem
+    validateItem,
+    subtract
 };
