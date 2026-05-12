@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Statystyki</title>
+</head>
+<body>
+  <h1>Statystyki produktów</h1>
+  <nav>
+    <a href="index.html">Strona główna</a> |
+    <a href="products.html">Produkty</a>
+  </nav>
+
+  <p>Liczba wszystkich produktów: <span id="liczba"></span></p>
+  <P>Instance ID:<span id="instance"></span></P>
+
+  <script>
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('liczba').textContent = data.liczba;
+        document.getElementById('instance').textContent = data.instance;
+      });
+  </script>
+</body>
+</html>
