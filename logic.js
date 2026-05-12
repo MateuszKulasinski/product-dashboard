@@ -7,7 +7,6 @@ function readItems() {
 }
 
 function addItem(item) {
-    throw new Error("Błąd celowy");
     const items = readItems();
     items.push(item);
     fs.writeFileSync(sciezka, JSON.stringify(items, null, 2));
