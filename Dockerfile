@@ -1,21 +1,28 @@
-FROM node:20-alpine AS build
+FROM node:20-alpine
+
+ARG IMAGE_VERSION
+
+LABEL version=$IMAGE_VERSION
+
+ENV NODE_ENV=production
+ENV PORT=3000
 
 WORKDIR /app
 
-COPY ./frontend/ .
+COPY package.json package-lock.json ./
 
 
 
 
-FROM nginx:alpine
+RUN npm ci --omit=dev && npm cache clean --force
 
-ARG NGINX_VERSION
 
-LABEL version=$NGINX_VERSION
+COPY . .
 
-COPY --from=build /app /Produkty/frontend
+RUN mkdir -p /data && chown -R node:node /data
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+USER node
 
-EXPOSE 80
+EXPOSE 3000
+
+CMD ["node", "back.js"]

@@ -16,10 +16,6 @@ on:
 env:
   NODE_VERSION: 20
 
-defaults:
-  run:
-    working-directory: backend
-
 jobs:
   lint:
     name: Lint
@@ -47,6 +43,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     needs: lint
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
@@ -69,6 +66,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     needs: test
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
